@@ -1,5 +1,6 @@
 using System;
 using Unity_Translate.Items;
+using Unity_Translate.Scripts.Items;
 using UnityEngine;
 
 namespace Unity_Translate.Scripts.Translations

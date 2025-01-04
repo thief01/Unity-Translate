@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Unity_Translate.Items;
+using Unity_Translate.Scripts.Items;
 using Unity_Translate.Scripts.Translations;
 using UnityEngine;
 using UnityEngine.Events;
@@ -22,14 +23,26 @@ namespace Unity_Translate
             LanguageChanged.Invoke();
         }
         
-        public static LanguageItem GetTranslation(LanguageVariable languageVariable)
+        public static LanguageItem GetTranslation(LanguageVariable languageVariable, LanguageTranslationType type = LanguageTranslationType.Undefined)
         {
-            return CurrentLanguageData.GetTranslation(languageVariable);
+            var langItem = CurrentLanguageData.GetLanguageItem(languageVariable);
+            if (langItem.CheckType(type))
+            {
+                // TODO: log missing translation
+                
+            }
+            return langItem;
         }
 
-        public static LanguageItem GetTranslation(string category, string key)
+        public static LanguageItem GetTranslation(string category, string key, LanguageTranslationType type = LanguageTranslationType.Undefined)
         {
-            return CurrentLanguageData.GetTranslation(category, key);
+            var langItem = CurrentLanguageData.GetLanguageItem(category, key);
+            if (langItem.CheckType(type))
+            {
+                // TODO: log missing translation
+            }
+
+            return langItem;
         }
         
         public static List<string> GetCategories()
