@@ -71,7 +71,6 @@ namespace Unity_Translate.Editor
             {
                 choicedLang = tempLang;
                 choicedCategory = 0;
-                RefreshStateOfMissingTranslations();
             }
             if (GUILayout.Button("Reload languages"))
             {
