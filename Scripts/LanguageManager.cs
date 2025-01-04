@@ -38,7 +38,6 @@ namespace Unity_Translate
             var langItem = CurrentLanguageData.GetLanguageItem(languageVariable);
             if (langItem.CheckType(type))
             {
-                // TODO: log missing translation
                 LanguageMissingLogger.Instance.LogMissingTranslation(languageVariable, type, CurrentLanguage);
                 
             }
@@ -50,7 +49,6 @@ namespace Unity_Translate
             var langItem = CurrentLanguageData.GetLanguageItem(category, key, type);
             if (langItem.CheckType(type))
             {
-                // TODO: log missing translation
                 LanguageMissingLogger.Instance.LogMissingTranslation(category, key, type, CurrentLanguage);
             }
 
