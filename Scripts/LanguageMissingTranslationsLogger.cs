@@ -3,8 +3,9 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-namespace Unity_Translate
+namespace Unity_Translate.Scripts
 {
+    
     public static class LanguageMissingTranslationsLogger
     {
         
