@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using NUnit.Framework;
+using Unity_Translate.DebugLang;
 using Unity_Translate.Translations;
 using UnityEngine;
 
@@ -34,7 +35,7 @@ namespace Unity_Translate.Items
                 }
             }
 
-            // TODO: log missing translation
+            LanguageMissingsLogger.Instance.LogMissingTranslation(category, key, type, language);
             return new LanguageItem() { key = key, translation = key };
         }
 

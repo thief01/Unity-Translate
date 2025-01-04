@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity_Translate.DebugLang;
 using Unity_Translate.Items;
 using Unity_Translate.Translations;
 using UnityEngine;
@@ -28,6 +29,7 @@ namespace Unity_Translate
             if (langItem.CheckType(type))
             {
                 // TODO: log missing translation
+                LanguageMissingsLogger.Instance.LogMissingTranslation(languageVariable, type, CurrentLanguage);
                 
             }
             return langItem;
@@ -39,6 +41,7 @@ namespace Unity_Translate
             if (langItem.CheckType(type))
             {
                 // TODO: log missing translation
+                LanguageMissingsLogger.Instance.LogMissingTranslation(category, key, type, CurrentLanguage);
             }
 
             return langItem;

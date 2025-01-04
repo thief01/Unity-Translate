@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Unity_Translate.Items;
+using Unity_Translate.Translations;
 using UnityEngine;
 
-namespace Unity_Translate
+namespace Unity_Translate.DebugLang
 {
     
     public class LanguageMissingsLogger
@@ -25,7 +27,7 @@ namespace Unity_Translate
             }
         }
 
-        public static LanguageMissingsLogger instance;
+        private static LanguageMissingsLogger instance;
     
         public List<string> MissingTranslations => missingKeys;
     
@@ -37,6 +39,16 @@ namespace Unity_Translate
             if (missingKeys.Contains(key))
                 return;
             missingKeys.Add(key);
+        }
+
+        public void LogMissingTranslation(string category, string key, LanguageTranslationType type, SystemLanguage language)
+        {
+            
+        }
+        
+        public void LogMissingTranslation(LanguageVariable languageVariable, LanguageTranslationType type, SystemLanguage language)
+        {
+            
         }
 
         public void SaveMissingTranslations()
