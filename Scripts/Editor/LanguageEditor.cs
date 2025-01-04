@@ -47,7 +47,6 @@ namespace Unity_Translate.Editor
             AssetDatabase.Refresh();
             langs = LanguageSettings.Instance.languages;
             missingTranslations.Clear();
-            RefreshStateOfMissingTranslations();
         }
 
         private void OnGUI()
