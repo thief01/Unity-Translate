@@ -24,7 +24,7 @@ namespace Unity_Translate
         
         public static LanguageItem GetTranslation(LanguageVariable languageVariable)
         {
-            return GetTranslation(languageVariable);
+            return CurrentLanguageData.GetTranslation(languageVariable);
         }
 
         public static LanguageItem GetTranslation(string category, string key)
