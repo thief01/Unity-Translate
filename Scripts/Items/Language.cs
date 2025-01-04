@@ -12,10 +12,10 @@ namespace Unity_Translate.Items
         public SystemLanguage language;
         public List<LanguageCategory> languageCategories;
         
-        
         public LanguageItem GetTranslation(LanguageVariable languageVariable)
         {
             var category = languageCategories[languageVariable.Category];
+            // TODO: Safe code + cache key as the name to make default value
             return category.languageItems[languageVariable.Key];
         }
 
