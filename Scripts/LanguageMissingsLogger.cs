@@ -6,34 +6,47 @@ using UnityEngine;
 namespace Unity_Translate
 {
     
-    public static class LanguageMissingTranslationsLogger
+    public class LanguageMissingsLogger
     {
-        
         private const string MISSING_TRANSLATIONS_FILE = "MissingTranslations.data";
         private static readonly string MISSING_TRANSLATIONS_PATH = Application.streamingAssetsPath + "/Data/";
         private static readonly string MISSING_TRANSLATIONS_FILE_PATH =
             MISSING_TRANSLATIONS_PATH + MISSING_TRANSLATIONS_FILE;
+
+        public static LanguageMissingsLogger Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new LanguageMissingsLogger();
+                }
+                return instance;
+            }
+        };
+
+        public static LanguageMissingsLogger instance;
     
-        public static List<string> MissingTranslations => missingKeys;
+        public List<string> MissingTranslations => missingKeys;
     
-        private static List<string> missingKeys = new();
-        private static bool isMissingKeysLoaded = false;
+        private List<string> missingKeys = new();
+        private bool isMissingKeysLoaded = false;
     
-        public static void AddMissingTranslations(string key)
+        public void AddMissingTranslations(string key)
         {
             if (missingKeys.Contains(key))
                 return;
             missingKeys.Add(key);
         }
 
-        public static void SaveMissingTranslations()
+        public void SaveMissingTranslations()
         {
             CheckPath();
             LoadMissingTranslations();
             WriteMissingTranslations();
         }
     
-        public static void LoadMissingTranslations()
+        public void LoadMissingTranslations()
         {
             if (isMissingKeysLoaded)
                 return;
@@ -51,7 +64,7 @@ namespace Unity_Translate
             sr.Close();
         }
     
-        private static void CheckPath()
+        private void CheckPath()
         {
             if (!Directory.Exists(MISSING_TRANSLATIONS_PATH))
             {
@@ -66,7 +79,7 @@ namespace Unity_Translate
             }
         }
     
-        private static void WriteMissingTranslations()
+        private void WriteMissingTranslations()
         {
             return;
             StreamWriter sw = new StreamWriter(MISSING_TRANSLATIONS_FILE_PATH, false, Encoding.Default);
