@@ -1,5 +1,4 @@
 ﻿using Unity_Translate.Items;
-using Unity_Translate.Scripts.Items;
 
 namespace Unity_Translate.Editor
 {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Unity_Translate.Scripts.Items
+namespace Unity_Translate.Items
 {
     [System.Serializable]
     public class LanguageItem

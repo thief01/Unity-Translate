@@ -1,8 +1,9 @@
 using System;
 using TMPro;
+using Unity_Translate.Items;
 using UnityEngine;
 
-namespace Unity_Translate.Scripts.Translations
+namespace Unity_Translate.Translations
 {
     [RequireComponent(typeof(TMP_Text))]
     public class LocalizedText : LocalizedComponent
@@ -30,6 +31,11 @@ namespace Unity_Translate.Scripts.Translations
                 return;
             }
             tmpText.text = languageItem.translation;
+        }
+        
+        protected override LanguageTranslationType GetTranslationType()
+        {
+            return LanguageTranslationType.Text;
         }
 
         private string FormatText()

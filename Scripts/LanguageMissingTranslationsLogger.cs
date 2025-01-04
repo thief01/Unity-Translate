@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-namespace Unity_Translate.Scripts
+namespace Unity_Translate
 {
     
     public static class LanguageMissingTranslationsLogger

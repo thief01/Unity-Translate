@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace Unity_Translate.Scripts.Items
+namespace Unity_Translate.Items
 {
     public enum LanguageTranslationType
     {

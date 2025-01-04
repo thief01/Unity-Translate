@@ -1,4 +1,4 @@
-namespace Unity_Translate.Scripts.Translations
+namespace Unity_Translate.Translations
 {
     [System.Serializable]
     public class LanguageVariable

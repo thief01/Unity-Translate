@@ -1,6 +1,7 @@
+using Unity_Translate.Items;
 using UnityEngine;
 
-namespace Unity_Translate.Scripts.Translations
+namespace Unity_Translate.Translations
 {
     public class LocalizedAudio : LocalizedComponent
     {
@@ -15,6 +16,11 @@ namespace Unity_Translate.Scripts.Translations
         protected override void UpdateLang()
         {
             audioSource.clip = languageItem.audioClip;
+        }
+
+        protected override LanguageTranslationType GetTranslationType()
+        {
+            return LanguageTranslationType.Audio;
         }
     }
 }

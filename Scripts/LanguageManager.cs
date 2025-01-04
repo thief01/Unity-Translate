@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Unity_Translate.Items;
-using Unity_Translate.Scripts.Items;
-using Unity_Translate.Scripts.Translations;
+using Unity_Translate.Translations;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -36,7 +35,7 @@ namespace Unity_Translate
 
         public static LanguageItem GetTranslation(string category, string key, LanguageTranslationType type = LanguageTranslationType.Undefined)
         {
-            var langItem = CurrentLanguageData.GetLanguageItem(category, key);
+            var langItem = CurrentLanguageData.GetLanguageItem(category, key, type);
             if (langItem.CheckType(type))
             {
                 // TODO: log missing translation

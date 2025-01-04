@@ -1,9 +1,7 @@
-using System;
 using Unity_Translate.Items;
-using Unity_Translate.Scripts.Items;
 using UnityEngine;
 
-namespace Unity_Translate.Scripts.Translations
+namespace Unity_Translate.Translations
 {
     public abstract class LocalizedComponent : MonoBehaviour
     {
@@ -29,6 +27,8 @@ namespace Unity_Translate.Scripts.Translations
         }
         
         protected abstract void UpdateLang();
+        
+        protected abstract LanguageTranslationType GetTranslationType();
 
         private void RegisterEvents()
         {
@@ -42,7 +42,7 @@ namespace Unity_Translate.Scripts.Translations
         
         private void UpdateLanguageItem()
         {
-            languageItem = LanguageManager.GetTranslation(languageVariable);
+            languageItem = LanguageManager.GetTranslation(languageVariable, GetTranslationType());
             UpdateLang();
         }
     }

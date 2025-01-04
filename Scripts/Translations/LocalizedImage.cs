@@ -1,7 +1,8 @@
+using Unity_Translate.Items;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Unity_Translate.Scripts.Translations
+namespace Unity_Translate.Translations
 {
     [RequireComponent(typeof(Image))]
     public class LocalizedImage : LocalizedComponent
@@ -17,6 +18,11 @@ namespace Unity_Translate.Scripts.Translations
         protected override void UpdateLang()
         {
             image.sprite = languageItem.sprite;
+        }
+        
+        protected override LanguageTranslationType GetTranslationType()
+        {
+            return LanguageTranslationType.Image;
         }
     }
 }

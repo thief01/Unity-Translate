@@ -1,11 +1,8 @@
-using Unity_Translate.Scripts.Translations;
-using Unity.VisualScripting;
+using Unity_Translate.Translations;
 using UnityEditor;
-using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-namespace Unity_Translate.Scripts.Editor
+namespace Unity_Translate.Editor
 {
     [CustomPropertyDrawer(typeof(LanguageVariable))]
     public class LanguageVariablePropertyDrawer : PropertyDrawer

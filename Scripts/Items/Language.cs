@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using NUnit.Framework;
-using Unity_Translate.Scripts.Items;
-using Unity_Translate.Scripts.Translations;
+using Unity_Translate.Translations;
 using UnityEngine;
 
 namespace Unity_Translate.Items
@@ -19,7 +18,7 @@ namespace Unity_Translate.Items
             return category.languageItems[languageVariable.Key];
         }
 
-        public LanguageItem GetLanguageItem(string category, string key)
+        public LanguageItem GetLanguageItem(string category, string key, LanguageTranslationType type = LanguageTranslationType.Undefined)
         {
             foreach (var languageCategory in languageCategories)
             {
