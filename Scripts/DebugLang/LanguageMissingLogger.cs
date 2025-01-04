@@ -8,31 +8,26 @@ using UnityEngine;
 namespace Unity_Translate.DebugLang
 {
     
-    public class LanguageMissingsLogger
+    public class LanguageMissingLogger
     {
         private const string MISSING_TRANSLATIONS_FILE = "MissingTranslations.data";
         private static readonly string MISSING_TRANSLATIONS_PATH = Application.streamingAssetsPath + "/Data/";
         private static readonly string MISSING_TRANSLATIONS_FILE_PATH =
             MISSING_TRANSLATIONS_PATH + MISSING_TRANSLATIONS_FILE;
 
-        public static LanguageMissingsLogger Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new LanguageMissingsLogger();
-                }
-                return instance;
-            }
-        }
+        public static LanguageMissingLogger Instance => instance ??= new LanguageMissingLogger();
 
-        private static LanguageMissingsLogger instance;
+        private static LanguageMissingLogger instance;
     
         public List<string> MissingTranslations => missingKeys;
     
         private List<string> missingKeys = new();
         private bool isMissingKeysLoaded = false;
+
+        private LanguageMissingLogger()
+        {
+            
+        }
     
         public void AddMissingTranslations(string key)
         {

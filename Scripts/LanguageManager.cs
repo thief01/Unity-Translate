@@ -8,13 +8,17 @@ using UnityEngine.Events;
 
 namespace Unity_Translate
 {
-    public class LanguageManager : MonoBehaviour
+    public class LanguageManager
     {
         public static UnityEvent LanguageChanged = new UnityEvent();
-        public static SystemLanguage CurrentLanguage { get; private set; }
-        public static Language CurrentLanguageData { get; private set; }
+        public SystemLanguage CurrentLanguage { get; private set; }
+        public Language CurrentLanguageData { get; private set; }
         
-        public static void SetLanguage(SystemLanguage language)
+        public LanguageManager Instance => instance ??= new LanguageManager();
+        
+        private LanguageManager instance;
+        
+        public void SetLanguage(SystemLanguage language)
         {
             CurrentLanguage = language;
             PlayerPrefs.SetInt("Language", (int)language);
@@ -23,31 +27,31 @@ namespace Unity_Translate
             LanguageChanged.Invoke();
         }
         
-        public static LanguageItem GetTranslation(LanguageVariable languageVariable, LanguageTranslationType type = LanguageTranslationType.Undefined)
+        public LanguageItem GetTranslation(LanguageVariable languageVariable, LanguageTranslationType type = LanguageTranslationType.Undefined)
         {
             var langItem = CurrentLanguageData.GetLanguageItem(languageVariable);
             if (langItem.CheckType(type))
             {
                 // TODO: log missing translation
-                LanguageMissingsLogger.Instance.LogMissingTranslation(languageVariable, type, CurrentLanguage);
+                LanguageMissingLogger.Instance.LogMissingTranslation(languageVariable, type, CurrentLanguage);
                 
             }
             return langItem;
         }
 
-        public static LanguageItem GetTranslation(string category, string key, LanguageTranslationType type = LanguageTranslationType.Undefined)
+        public LanguageItem GetTranslation(string category, string key, LanguageTranslationType type = LanguageTranslationType.Undefined)
         {
             var langItem = CurrentLanguageData.GetLanguageItem(category, key, type);
             if (langItem.CheckType(type))
             {
                 // TODO: log missing translation
-                LanguageMissingsLogger.Instance.LogMissingTranslation(category, key, type, CurrentLanguage);
+                LanguageMissingLogger.Instance.LogMissingTranslation(category, key, type, CurrentLanguage);
             }
 
             return langItem;
         }
         
-        public static List<string> GetCategories()
+        public List<string> GetCategories()
         {
             if (LanguageSettings.Instance == null || LanguageSettings.Instance.languages == null)
             {

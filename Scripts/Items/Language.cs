@@ -35,7 +35,7 @@ namespace Unity_Translate.Items
                 }
             }
 
-            LanguageMissingsLogger.Instance.LogMissingTranslation(category, key, type, language);
+            LanguageMissingLogger.Instance.LogMissingTranslation(category, key, type, language);
             return new LanguageItem() { key = key, translation = key };
         }
 
