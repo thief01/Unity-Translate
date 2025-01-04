@@ -21,6 +21,12 @@ namespace Unity_Translate.Scripts.Translations
             UnRegisterEvents();
         }
         
+        public void SetLanguageVariable(LanguageVariable variable)
+        {
+            languageVariable = variable;
+            UpdateLanguageItem();
+        }
+        
         protected abstract void UpdateLang();
 
         private void RegisterEvents()
