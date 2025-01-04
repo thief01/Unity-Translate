@@ -14,9 +14,15 @@ namespace Unity_Translate
         public SystemLanguage CurrentLanguage { get; private set; }
         public Language CurrentLanguageData { get; private set; }
         
-        public LanguageManager Instance => instance ??= new LanguageManager();
+        public static LanguageManager Instance => instance ??= new LanguageManager();
         
-        private LanguageManager instance;
+        private static LanguageManager instance;
+
+        private LanguageManager()
+        {
+            
+        }
+        
         
         public void SetLanguage(SystemLanguage language)
         {

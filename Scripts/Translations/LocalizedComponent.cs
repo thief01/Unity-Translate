@@ -42,7 +42,7 @@ namespace Unity_Translate.Translations
         
         private void UpdateLanguageItem()
         {
-            languageItem = LanguageManager.GetTranslation(languageVariable, GetTranslationType());
+            languageItem = LanguageManager.Instance.GetTranslation(languageVariable, GetTranslationType());
             UpdateLang();
         }
     }

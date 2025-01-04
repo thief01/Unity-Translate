@@ -11,7 +11,7 @@ namespace Unity_Translate.Editor
         {
             var keyProperty = property.FindPropertyRelative("Key");
             var categoryProperty = property.FindPropertyRelative("Category");
-            var categories = LanguageManager.GetCategories();
+            var categories = LanguageManager.Instance.GetCategories();
 
             GUIStyle style = new GUIStyle()
             {
@@ -49,7 +49,7 @@ namespace Unity_Translate.Editor
         
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            var categories = LanguageManager.GetCategories();
+            var categories = LanguageManager.Instance.GetCategories();
             if (categories == null)
             {
                 return EditorGUIUtility.singleLineHeight;
@@ -61,7 +61,7 @@ namespace Unity_Translate.Editor
             }
             
             var selectedCategory = property.FindPropertyRelative("Category").intValue;
-            if (LanguageManager.GetKeys(LanguageManager.GetCategories()[selectedCategory]).Count == 0)
+            if (LanguageManager.GetKeys(LanguageManager.Instance.GetCategories()[selectedCategory]).Count == 0)
             {
                 return EditorGUIUtility.singleLineHeight * 2;
             }
