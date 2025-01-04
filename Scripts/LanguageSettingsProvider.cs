@@ -28,22 +28,16 @@ namespace Unity_Translate
                     SerializedObject serializedSettings = new SerializedObject(settings);
                     SerializedProperty languagesProperty = serializedSettings.FindProperty("languages");
 
-                    serializedSettings.Update(); // Synchronizacja danych
+                    serializedSettings.Update();
                     EditorGUILayout.PropertyField(languagesProperty, new GUIContent("Languages"));
-                    serializedSettings.ApplyModifiedProperties(); // Zapis zmian
-
+                    serializedSettings.ApplyModifiedProperties();
                     
-                    // settings.exampleString = EditorGUILayout.TextField("Example String", settings.exampleString);
-                    // settings.exampleInt = EditorGUILayout.IntField("Example Int", settings.exampleInt);
-                    // settings.exampleBool = EditorGUILayout.Toggle("Example Bool", settings.exampleBool);
-
                     if (GUI.changed)
                     {
                         EditorUtility.SetDirty(settings);
                     }
                 },
-
-                // Opcjonalnie: klucz wyszukiwania
+                
                 keywords = new[] { "language", "unitytranslation", "translation" }
             };
 
