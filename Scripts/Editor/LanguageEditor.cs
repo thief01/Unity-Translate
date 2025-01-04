@@ -45,20 +45,8 @@ namespace Unity_Translate.Editor
         private void InitLangs()
         {
             AssetDatabase.Refresh();
-            // LanguageManager.LoadLanguage();
             langs = LanguageSettings.Instance.languages;
             missingTranslations.Clear();
-            // LanguageMissingTranslationsLogger.LoadMissingTranslations();
-            // LanguageMissingTranslationsLogger.MissingTranslations.ForEach(ctg =>
-            // {
-            //     missingTranslations.Add(new LanguageItemEditor()
-            //     {
-            //         Key = ctg,
-            //         Category = "Missing",
-            //         Translation = ctg,
-            //         IsMissing = true
-            //     });
-            // });
             RefreshStateOfMissingTranslations();
         }
 
@@ -98,14 +86,6 @@ namespace Unity_Translate.Editor
                 // SaveLanguages();
             }
             GUILayout.EndHorizontal();
-        }
-        
-        private void RefreshStateOfMissingTranslations()
-        {
-            // missingTranslations.ForEach(ctg =>
-            // {
-                // ctg.IsMissing = !UsingLanguage.HasTranslation(ctg.Key);
-            // });
         }
         
         private void CategorySelection()
@@ -196,14 +176,11 @@ namespace Unity_Translate.Editor
         private void RemoveTranslation(LanguageItem languageItem)
         {
             UsingLanguage.languageCategories[choicedCategory].languageItems.Remove(languageItem);
-            RefreshStateOfMissingTranslations();
         }
         
         private void AddMissingTranslation(LanguageItem languageItem)
         {
-            // languageItem.Category = langs[choicedLang].Categories[choicedCategory];
-            // langs[choicedLang].AddTranslation(languageItem);
-            RefreshStateOfMissingTranslations();
+
         }
     }
 }
