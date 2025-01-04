@@ -17,12 +17,12 @@ namespace Unity_Translate
         public static LanguageManager Instance => instance ??= new LanguageManager();
         
         private static LanguageManager instance;
-
+        
         private LanguageManager()
         {
-            
+            CurrentLanguage = (SystemLanguage) PlayerPrefs.GetInt("Language", (int) SystemLanguage.English);
+            CurrentLanguageData = LanguageSettings.Instance.languages.FirstOrDefault(x => x.language == CurrentLanguage);
         }
-        
         
         public void SetLanguage(SystemLanguage language)
         {

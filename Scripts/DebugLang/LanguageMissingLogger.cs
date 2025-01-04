@@ -18,15 +18,13 @@ namespace Unity_Translate.DebugLang
         public static LanguageMissingLogger Instance => instance ??= new LanguageMissingLogger();
 
         private static LanguageMissingLogger instance;
-    
-        public List<string> MissingTranslations => missingKeys;
-    
-        private List<string> missingKeys = new();
-        private bool isMissingKeysLoaded = false;
+
+        private List<string> missingKeys;
 
         private LanguageMissingLogger()
         {
-            
+            LoadMissingTranslations();
+            Application.quitting += SaveMissingTranslations;
         }
     
         public void AddMissingTranslations(string key)
@@ -36,31 +34,19 @@ namespace Unity_Translate.DebugLang
             missingKeys.Add(key);
         }
 
-        public void LogMissingTranslation(string category, string key, LanguageTranslationType type, SystemLanguage language)
-        {
-            
-        }
-        
         public void LogMissingTranslation(LanguageVariable languageVariable, LanguageTranslationType type, SystemLanguage language)
         {
-            
+            LogMissingTranslation(languageVariable.Category.ToString(), languageVariable.Key.ToString(), type, language);
         }
-
-        public void SaveMissingTranslations()
+        
+        public void LogMissingTranslation(string category, string key, LanguageTranslationType type, SystemLanguage language)
         {
-            CheckPath();
-            LoadMissingTranslations();
-            WriteMissingTranslations();
+            AddMissingTranslations($"{category}.{key}.{type}.{language}");
         }
-    
+        
         public void LoadMissingTranslations()
         {
-            if (isMissingKeysLoaded)
-                return;
-            if (!Directory.Exists(MISSING_TRANSLATIONS_PATH))
-            {
-                Directory.CreateDirectory(MISSING_TRANSLATIONS_PATH);
-            }
+            CheckPath();
 
             StreamReader sr = new StreamReader(MISSING_TRANSLATIONS_FILE_PATH);
             string line;
@@ -70,31 +56,29 @@ namespace Unity_Translate.DebugLang
             }
             sr.Close();
         }
-    
-        private void CheckPath()
+        
+        public void SaveMissingTranslations()
         {
-            if (!Directory.Exists(MISSING_TRANSLATIONS_PATH))
-            {
-                Directory.CreateDirectory(MISSING_TRANSLATIONS_PATH);
-                isMissingKeysLoaded = true;
-            }
-
-            if (!File.Exists(MISSING_TRANSLATIONS_FILE_PATH))
-            {
-                File.Create(MISSING_TRANSLATIONS_FILE_PATH);
-                isMissingKeysLoaded = true;
-            }
-        }
-    
-        private void WriteMissingTranslations()
-        {
-            return;
+            CheckPath();
             StreamWriter sw = new StreamWriter(MISSING_TRANSLATIONS_FILE_PATH, false, Encoding.Default);
             foreach (var key in missingKeys)
             {
                 sw.WriteLine(key);
             }
             sw.Close();
+        }
+        
+        private void CheckPath()
+        {
+            if (!Directory.Exists(MISSING_TRANSLATIONS_PATH))
+            {
+                Directory.CreateDirectory(MISSING_TRANSLATIONS_PATH);
+            }
+
+            if (!File.Exists(MISSING_TRANSLATIONS_FILE_PATH))
+            {
+                File.Create(MISSING_TRANSLATIONS_FILE_PATH);
+            }
         }
     }
 }
