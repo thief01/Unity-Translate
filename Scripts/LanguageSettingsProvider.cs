@@ -14,7 +14,6 @@ namespace Unity_Translate
             {
                 label = "Language Settings",
 
-                // Rysowanie GUI w zakładce ustawień
                 guiHandler = (searchContext) =>
                 {
                     var settings = LanguageSettings.Instance;
