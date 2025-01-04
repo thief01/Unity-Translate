@@ -135,8 +135,6 @@ namespace Unity_Translate.Editor
         private void DrawLangView()
         {
             EditorGUILayout.HelpBox("Translations", MessageType.Info);
-            
-            var categoryItems = UsingLanguage.languageCategories[choicedCategory].languageItems;
 
             var translations = UsingLanguage.languageCategories[choicedCategory].languageItems;
             translations = translations.OrderBy(ctg => ctg.key).ToList();
