@@ -23,7 +23,7 @@ namespace Unity_Translate
                 }
                 return instance;
             }
-        };
+        }
 
         public static LanguageMissingsLogger instance;
     
