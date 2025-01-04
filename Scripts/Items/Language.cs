@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Unity_Translate.Scripts.Items;
+using Unity_Translate.Scripts.Translations;
 using UnityEngine;
 
 namespace Unity_Translate.Items
@@ -10,6 +11,13 @@ namespace Unity_Translate.Items
     {
         public SystemLanguage language;
         public List<LanguageCategory> languageCategories;
+        
+        
+        public LanguageItem GetTranslation(LanguageVariable languageVariable)
+        {
+            var category = languageCategories[languageVariable.Category];
+            return category.languageItems[languageVariable.Key];
+        }
 
         public LanguageItem GetTranslation(string category, string key)
         {

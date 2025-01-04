@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Unity_Translate.Items;
+using Unity_Translate.Scripts.Translations;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,16 +9,11 @@ namespace Unity_Translate
 {
     public class LanguageManager : MonoBehaviour
     {
-        // public static string LANG_PATH => Application.dataPath + "/Resources/Configs/Langs/";
-
         public static UnityEvent LanguageChanged = new UnityEvent();
+        public static SystemLanguage CurrentLanguage { get; private set; }
+        public static Language CurrentLanguageData { get; private set; }
         
-        public SystemLanguage CurrentLanguage { get; private set; }
-        
-        public Language CurrentLanguageData { get; private set; }
-
-        
-        public void SetLanguage(SystemLanguage language)
+        public static void SetLanguage(SystemLanguage language)
         {
             CurrentLanguage = language;
             PlayerPrefs.SetInt("Language", (int)language);
@@ -25,8 +21,13 @@ namespace Unity_Translate
             CurrentLanguageData = LanguageSettings.Instance.languages.FirstOrDefault(x => x.language == language);
             LanguageChanged.Invoke();
         }
+        
+        public static LanguageItem GetTranslation(LanguageVariable languageVariable)
+        {
+            return GetTranslation(languageVariable);
+        }
 
-        public LanguageItem GetTranslation(string category, string key)
+        public static LanguageItem GetTranslation(string category, string key)
         {
             return CurrentLanguageData.GetTranslation(category, key);
         }
