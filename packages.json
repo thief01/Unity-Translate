@@ -1,0 +1,10 @@
+{
+  "name": "com.thief01.unitytranslate",
+  "version": "1.0.0",
+  "displayName": "Unity Translate",
+  "description": "Easy translations for unity.",
+  "dependencies": {
+    "com.unity.textmeshpro": "3.0.6",
+    "com.mathijsbakker.extenject": "9.2.0"
+  }
+}
