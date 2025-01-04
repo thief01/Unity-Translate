@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace Unity_Translate.Items
@@ -15,10 +16,13 @@ namespace Unity_Translate.Items
                     if (instance == null)
                     {
                         instance = CreateInstance<LanguageSettings>();
-                        
-                        // Tworzenie pliku w folderze Resources, jeśli brakuje zasobu
 #if UNITY_EDITOR
                         string path = "Assets/Resources/Language Settings.asset";
+                        if (!Directory.Exists(path))
+                        {
+                            var dict = Path.GetDirectoryName(path);
+                            Directory.CreateDirectory(dict );
+                        }
                         UnityEditor.AssetDatabase.CreateAsset(instance, path);
                         UnityEditor.AssetDatabase.SaveAssets();
                         UnityEditor.AssetDatabase.Refresh();

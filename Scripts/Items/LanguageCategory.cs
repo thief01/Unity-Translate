@@ -1,13 +1,13 @@
 using System.Collections.Generic;
-using NUnit.Framework;
-using UnityEngine;
+using Unity_Translate.Items;
+using UnityEngine.Serialization;
 
-namespace Unity_Translate.Items
+namespace Unity_Translate.Scripts.Items
 {
     [System.Serializable]
     public class LanguageCategory
     {
-        public string name;
+        [FormerlySerializedAs("name")] public string categoryName;
         public List<LanguageItem> languageItems;
     }
 }
