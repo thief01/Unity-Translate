@@ -17,8 +17,7 @@ namespace Unity_Translate
                 guiHandler = (searchContext) =>
                 {
                     var settings = LanguageSettings.Instance;
-
-                    EditorGUILayout.LabelField("Example Settings", EditorStyles.boldLabel);
+                    
                     var availableLanguages = settings.languages.Where(ctg => ctg != null).Select(ctg => ctg.language.ToString()).ToArray();
 
                     var lang = (int)settings.defaultLanguage;
