@@ -58,7 +58,6 @@ namespace Unity_Translate.Editor
             
             scrollView = GUILayout.BeginScrollView(scrollView);
             DrawLangView();
-            // DrawMissingTranslations();
             GUILayout.EndScrollView();
         }
 
@@ -72,7 +71,7 @@ namespace Unity_Translate.Editor
                 choicedLang = tempLang;
                 choicedCategory = 0;
             }
-
+            
             if (GUILayout.Button("Save language"))
             {
                 EditorUtility.SetDirty(UsingLanguage);
@@ -99,6 +98,7 @@ namespace Unity_Translate.Editor
                 
                 choicedCategory = UsingLanguage.languageCategories.Count - 1;
             }
+            
             if (GUILayout.Button("Remove category"))
             {
                 UsingLanguage.languageCategories.Remove(UsingLanguage.languageCategories[choicedCategory]);

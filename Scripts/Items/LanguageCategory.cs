@@ -7,6 +7,6 @@ namespace Unity_Translate.Items
     public class LanguageCategory
     {
         [FormerlySerializedAs("name")] public string categoryName;
-        public List<LanguageItem> languageItems;
+        public List<LanguageItem> languageItems = new List<LanguageItem>();
     }
 }
