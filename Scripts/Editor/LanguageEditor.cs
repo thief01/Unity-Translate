@@ -144,18 +144,6 @@ namespace Unity_Translate.Editor
                 DrawSingleTranslationLine(translation, "-", RemoveTranslation);
             }
         }
-        
-        // private void DrawMissingTranslations()
-        // {
-        //     EditorGUILayout.HelpBox("Missing translations", MessageType.Info);
-        //     foreach (var translation in missingTranslations)
-        //     {
-        //         if (translation.IsMissing)
-        //         {
-        //             DrawSingleTranslationLine(translation, "+", AddMissingTranslation);
-        //         }
-        //     }
-        // }
 
         private void DrawSingleTranslationLine(LanguageItem languageItem, string buttonActionText,
             Action<LanguageItem> onButtonClick)
@@ -177,11 +165,6 @@ namespace Unity_Translate.Editor
         private void RemoveTranslation(LanguageItem languageItem)
         {
             UsingLanguage.languageCategories[choicedCategory].languageItems.Remove(languageItem);
-        }
-        
-        private void AddMissingTranslation(LanguageItem languageItem)
-        {
-            
         }
     }
 }
