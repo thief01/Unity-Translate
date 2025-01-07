@@ -17,6 +17,7 @@ namespace Unity_Translate.Editor
 
         private List<LanguageItemEditor> missingTranslations = new();
 
+        
         private int choicedLang = 0;
         private int choicedCategory = 0;
         private Vector2 scrollView;
@@ -57,31 +58,24 @@ namespace Unity_Translate.Editor
             
             scrollView = GUILayout.BeginScrollView(scrollView);
             DrawLangView();
-            DrawMissingTranslations();
+            // DrawMissingTranslations();
             GUILayout.EndScrollView();
         }
 
         private void LanguageSelection()
         {
             GUILayout.BeginHorizontal();
-            var langs = LanguageSettings.Instance.languages.Select(ctg => ctg.language.ToString()).ToArray();
+            var langs = LanguageSettings.Instance.languages.Select(ctg => $"{ctg.name} ({ctg.language})").ToArray();
             var tempLang = EditorGUILayout.Popup(choicedLang, langs);
             if (choicedLang != tempLang)
             {
                 choicedLang = tempLang;
                 choicedCategory = 0;
             }
-            if (GUILayout.Button("Reload languages"))
-            {
-                InitLangs();
-            }
+
             if (GUILayout.Button("Save language"))
             {
-                
-                // set dirty
                 EditorUtility.SetDirty(UsingLanguage);
-                
-                // SaveLanguages();
             }
             GUILayout.EndHorizontal();
         }
@@ -134,6 +128,12 @@ namespace Unity_Translate.Editor
 
         private void DrawLangView()
         {
+            var categories = UsingLanguage.languageCategories;
+            if (categories.Count == 0)
+            {
+                EditorGUILayout.HelpBox("No categories", MessageType.Warning);
+                return;
+            }
             EditorGUILayout.HelpBox("Translations", MessageType.Info);
 
             var translations = UsingLanguage.languageCategories[choicedCategory].languageItems;
@@ -145,23 +145,28 @@ namespace Unity_Translate.Editor
             }
         }
         
-        private void DrawMissingTranslations()
-        {
-            EditorGUILayout.HelpBox("Missing translations", MessageType.Info);
-            foreach (var translation in missingTranslations)
-            {
-                if (translation.IsMissing)
-                {
-                    DrawSingleTranslationLine(translation, "+", AddMissingTranslation);
-                }
-            }
-        }
+        // private void DrawMissingTranslations()
+        // {
+        //     EditorGUILayout.HelpBox("Missing translations", MessageType.Info);
+        //     foreach (var translation in missingTranslations)
+        //     {
+        //         if (translation.IsMissing)
+        //         {
+        //             DrawSingleTranslationLine(translation, "+", AddMissingTranslation);
+        //         }
+        //     }
+        // }
 
         private void DrawSingleTranslationLine(LanguageItem languageItem, string buttonActionText,
             Action<LanguageItem> onButtonClick)
         {
             GUILayout.BeginHorizontal();
-            languageItem.translation = EditorGUILayout.TextField(languageItem.key, languageItem.translation);
+
+            EditorGUILayout.LabelField(languageItem.key);
+            GUILayoutOption[] options = {GUILayout.Width(150), GUILayout.Height(50)};
+            languageItem.translation = EditorGUILayout.TextArea(languageItem.translation, options);
+            languageItem.audioClip = (AudioClip)EditorGUILayout.ObjectField(languageItem.audioClip, typeof(AudioClip), false, options);
+            languageItem.sprite = (Sprite)EditorGUILayout.ObjectField(languageItem.sprite, typeof(Sprite), false, options);
             if (GUILayout.Button(buttonActionText, GUILayout.Width(20)))
             {
                 onButtonClick.Invoke(languageItem);
@@ -176,7 +181,7 @@ namespace Unity_Translate.Editor
         
         private void AddMissingTranslation(LanguageItem languageItem)
         {
-
+            
         }
     }
 }
