@@ -59,6 +59,8 @@ namespace Unity_Translate.Editor
             scrollView = GUILayout.BeginScrollView(scrollView);
             DrawLangView();
             GUILayout.EndScrollView();
+            
+            EditorUtility.SetDirty(UsingLanguage);
         }
 
         private void LanguageSelection()
@@ -70,11 +72,6 @@ namespace Unity_Translate.Editor
             {
                 choicedLang = tempLang;
                 choicedCategory = 0;
-            }
-            
-            if (GUILayout.Button("Save language"))
-            {
-                EditorUtility.SetDirty(UsingLanguage);
             }
             GUILayout.EndHorizontal();
         }
