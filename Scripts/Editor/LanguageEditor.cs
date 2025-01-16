@@ -25,6 +25,7 @@ namespace Unity_Translate.Editor
         private string newCategory = "New category";
         private string newKey = "New key";
         private string newTranslation = "New translation";
+        private string errorMsg = "";
         
         [MenuItem("thief01/Tools/Language Editor")]
         private static void OpenWindow()
@@ -52,6 +53,7 @@ namespace Unity_Translate.Editor
 
         private void OnGUI()
         {
+            UpdateLangList();
             LanguageSelection();
             CategorySelection();
             AddingTranslation();
@@ -61,6 +63,18 @@ namespace Unity_Translate.Editor
             GUILayout.EndScrollView();
             
             EditorUtility.SetDirty(UsingLanguage);
+        }
+
+        private void UpdateLangList()
+        {
+            if (langs.Count != LanguageSettings.Instance.languages.Count)
+            {
+                langs = LanguageSettings.Instance.languages;
+                if (choicedLang >= langs.Count)
+                {
+                    choicedLang = langs.Count - 1;
+                }
+            }
         }
 
         private void LanguageSelection()
@@ -88,16 +102,19 @@ namespace Unity_Translate.Editor
             newCategory = EditorGUILayout.TextField(newCategory);
             if (GUILayout.Button("Add category"))
             {
-                UsingLanguage.languageCategories.Add(new LanguageCategory()
+                errorMsg = "";
+                if (!UsingLanguage.AddCategory(newCategory))
                 {
-                    categoryName = newCategory
-                });
+                    errorMsg = "Category already exists";
+                    return;
+                }
                 
                 choicedCategory = UsingLanguage.languageCategories.Count - 1;
             }
             
             if (GUILayout.Button("Remove category"))
             {
+                errorMsg = "";
                 UsingLanguage.languageCategories.Remove(UsingLanguage.languageCategories[choicedCategory]);
                 choicedCategory = 0;
                 return;
@@ -113,26 +130,29 @@ namespace Unity_Translate.Editor
             newTranslation = EditorGUILayout.TextField(newTranslation);
             if (GUILayout.Button("Add translation"))
             {
-                
-                UsingLanguage.languageCategories[choicedCategory].languageItems.Add(new LanguageItem()
+                errorMsg = "";
+                if (!UsingLanguage.languageCategories[choicedCategory].AddLanguageItem(newKey, newTranslation))
                 {
-                    key = newKey,
-                    translation = newTranslation
-                });
+                    errorMsg = "Translation already exists";
+                }
             }
             GUILayout.EndHorizontal();
         }
 
         private void DrawLangView()
         {
+            if (errorMsg.Length != 0)
+            {
+                EditorGUILayout.HelpBox(errorMsg, MessageType.Error);
+            }
+            
             var categories = UsingLanguage.languageCategories;
             if (categories.Count == 0)
             {
-                EditorGUILayout.HelpBox("No categories", MessageType.Warning);
+                errorMsg = "No categories found";
                 return;
             }
-            EditorGUILayout.HelpBox("Translations", MessageType.Info);
-
+            
             var translations = UsingLanguage.languageCategories[choicedCategory].languageItems;
             translations = translations.OrderBy(ctg => ctg.key).ToList();
             
@@ -154,6 +174,7 @@ namespace Unity_Translate.Editor
             languageItem.sprite = (Sprite)EditorGUILayout.ObjectField(languageItem.sprite, typeof(Sprite), false, options);
             if (GUILayout.Button(buttonActionText, GUILayout.Width(20)))
             {
+                errorMsg = "";
                 onButtonClick.Invoke(languageItem);
             }
             GUILayout.EndHorizontal();

@@ -11,6 +11,27 @@ namespace Unity_Translate.Items
     {
         public SystemLanguage language;
         public List<LanguageCategory> languageCategories;
+
+
+        public bool AddCategory(LanguageCategory languageCategory)
+        {
+            if (languageCategories.Exists(ctg => ctg.categoryName == languageCategory.categoryName))
+                return false;
+            languageCategories.Add(languageCategory);
+            return true;
+        }
+
+        public bool AddCategory(string categoryName)
+        {
+            if (languageCategories.Exists(ctg => ctg.categoryName == categoryName))
+                return false;
+            languageCategories.Add(new LanguageCategory()
+            {
+                categoryName = categoryName,
+            });
+
+            return true;
+        }
         
         public LanguageItem GetLanguageItem(LanguageVariable languageVariable)
         {
