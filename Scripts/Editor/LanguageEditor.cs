@@ -112,7 +112,7 @@ namespace Unity_Translate.Editor
                 choicedCategory = UsingLanguage.languageCategories.Count - 1;
             }
             
-            if (GUILayout.Button("Remove category"))
+            if (UsingLanguage.languageCategories.Count > 0 && GUILayout.Button("Remove category"))
             {
                 errorMsg = "";
                 UsingLanguage.languageCategories.Remove(UsingLanguage.languageCategories[choicedCategory]);
