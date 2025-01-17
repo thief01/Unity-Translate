@@ -42,8 +42,18 @@ namespace Unity_Translate.Items
         public SystemLanguage defaultLanguage = SystemLanguage.English;
 
         public List<Language> languages = new List<Language>();
-        
         public List<string> categories = new List<string>();
+
+
+        public void CreateCategory(string categoryName)
+        {
+            
+        }
+
+        public void CreateKey(string key)
+        {
+            
+        }
         
 #if UNITY_EDITOR
         
@@ -71,6 +81,7 @@ namespace Unity_Translate.Items
             language.languageCategories = new List<LanguageCategory>();
             string path = "Assets/Resources/Languages/" + systemLanguage + ".asset";
             UnityEditor.AssetDatabase.CreateAsset(language, path);
+            LoadLanguages();
         }
         
         public void AddLanguage(Language language)
