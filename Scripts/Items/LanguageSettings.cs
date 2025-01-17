@@ -61,6 +61,11 @@ namespace Unity_Translate.Items
 
         public void CreateLanguage(SystemLanguage systemLanguage)
         {
+            if(!Directory.Exists("Assets/Resources/Languages"))
+            {
+                Directory.CreateDirectory("Assets/Resources/Languages");
+            }
+            
             var language = CreateInstance<Language>();
             language.language = systemLanguage;
             language.languageCategories = new List<LanguageCategory>();
