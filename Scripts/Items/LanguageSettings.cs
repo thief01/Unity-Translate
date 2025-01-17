@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using NUnit.Framework;
 using UnityEngine;
 
 namespace Unity_Translate.Items
@@ -42,6 +43,8 @@ namespace Unity_Translate.Items
 
         public List<Language> languages = new List<Language>();
         
+        public List<string> categories = new List<string>();
+        
 #if UNITY_EDITOR
         
         public void LoadLanguages()
@@ -54,6 +57,15 @@ namespace Unity_Translate.Items
                 var language = UnityEditor.AssetDatabase.LoadAssetAtPath<Language>(path);
                 languages.Add(language);
             }
+        }
+
+        public void CreateLanguage(SystemLanguage systemLanguage)
+        {
+            var language = CreateInstance<Language>();
+            language.language = systemLanguage;
+            language.languageCategories = new List<LanguageCategory>();
+            string path = "Assets/Resources/Languages/" + systemLanguage + ".asset";
+            UnityEditor.AssetDatabase.CreateAsset(language, path);
         }
         
         public void AddLanguage(Language language)
