@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -42,17 +43,31 @@ namespace Unity_Translate.Items
         public SystemLanguage defaultLanguage = SystemLanguage.English;
 
         public List<Language> languages = new List<Language>();
-        public List<string> categories = new List<string>();
 
-
-        public void CreateCategory(string categoryName)
+        public string[] GetCategories(SystemLanguage systemLanguage)
         {
+            if (Instance == null || Instance.languages == null)
+            {
+                return null;
+            }
             
+            var language = languages.Find(x => x.language == systemLanguage);
+            if (language == null)
+                language = languages.FirstOrDefault();
+            return language.GetCategories();
         }
 
-        public void CreateKey(string key)
+        public string[] GetKeys(SystemLanguage systemLanguage, int category)
         {
+            if (Instance == null || Instance.languages == null)
+            {
+                return null;
+            }
             
+            var language = languages.Find(x => x.language == systemLanguage);
+            if (language == null)
+                language = languages.FirstOrDefault();
+            return language.GetKeys(category);
         }
         
 #if UNITY_EDITOR

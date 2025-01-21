@@ -141,7 +141,7 @@ namespace Unity_Translate.Editor
 
         private void DrawLangView()
         {
-            if (errorMsg.Length != 0)
+            if (!string.IsNullOrEmpty(errorMsg))
             {
                 EditorGUILayout.HelpBox(errorMsg, MessageType.Error);
             }

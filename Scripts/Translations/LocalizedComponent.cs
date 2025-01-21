@@ -5,9 +5,11 @@ namespace Unity_Translate.Translations
 {
     public abstract class LocalizedComponent : MonoBehaviour
     {
+        public LanguageVariable LanguageVariable => languageVariable;
+        
         [SerializeField] private LanguageVariable languageVariable;
         
-        protected LanguageItem languageItem;
+        protected LanguageData languageItem;
 
         protected virtual void Awake()
         {
@@ -18,6 +20,12 @@ namespace Unity_Translate.Translations
         private void OnDestroy()
         {
             UnRegisterEvents();
+        }
+
+        public void SetLanguageData(LanguageData languageData)
+        {
+            languageItem = languageData;
+            UpdateLang();
         }
         
         public void SetLanguageVariable(LanguageVariable variable)
@@ -40,7 +48,7 @@ namespace Unity_Translate.Translations
             LanguageManager.LanguageChanged.RemoveListener(UpdateLanguageItem);
         }
         
-        private void UpdateLanguageItem()
+        public void UpdateLanguageItem()
         {
             languageItem = LanguageManager.Instance.GetTranslation(languageVariable, GetTranslationType());
             UpdateLang();
