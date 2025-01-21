@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Unity_Translate.DebugLang;
 using Unity_Translate.Translations;
@@ -11,6 +12,26 @@ namespace Unity_Translate.Items
     {
         public SystemLanguage language;
         public List<LanguageCategory> languageCategories;
+        
+        public bool AddCategory(LanguageCategory languageCategory)
+        {
+            if (languageCategories.Exists(ctg => ctg.categoryName == languageCategory.categoryName))
+                return false;
+            languageCategories.Add(languageCategory);
+            return true;
+        }
+
+        public bool AddCategory(string categoryName)
+        {
+            if (languageCategories.Exists(ctg => ctg.categoryName == categoryName))
+                return false;
+            languageCategories.Add(new LanguageCategory()
+            {
+                categoryName = categoryName,
+            });
+
+            return true;
+        }
         
         public LanguageItem GetLanguageItem(LanguageVariable languageVariable)
         {
@@ -39,15 +60,14 @@ namespace Unity_Translate.Items
             return new LanguageItem() { key = key, translation = key };
         }
 
-        public List<string> GetCategories()
+        public string[] GetCategories()
         {
-            List<string> categories = new List<string>();
-            foreach (var languageCategory in languageCategories)
-            {
-                categories.Add(languageCategory.categoryName);
-            }
+            return languageCategories.Select(ctg => ctg.categoryName).ToArray();
+        }
 
-            return categories;
+        public string[] GetKeys(int category)
+        {
+            return languageCategories[category].languageItems.Select(ctg => ctg.key).ToArray();
         }
     }
 }

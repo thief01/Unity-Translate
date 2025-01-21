@@ -5,8 +5,9 @@ using UnityEngine;
 
 namespace Unity_Translate
 {
-    public static class LanguageSettingsProvider 
+    public static class LanguageSettingsProvider
     {
+        private static SystemLanguage choicedLanguage;
         [SettingsProvider]
         public static SettingsProvider CreateCustomSettingsProvider()
         {
@@ -17,8 +18,7 @@ namespace Unity_Translate
                 guiHandler = (searchContext) =>
                 {
                     var settings = LanguageSettings.Instance;
-
-                    EditorGUILayout.LabelField("Example Settings", EditorStyles.boldLabel);
+                    
                     var availableLanguages = settings.languages.Where(ctg => ctg != null).Select(ctg => ctg.language.ToString()).ToArray();
 
                     var lang = (int)settings.defaultLanguage;
@@ -29,6 +29,8 @@ namespace Unity_Translate
 
                     serializedSettings.Update();
                     EditorGUILayout.PropertyField(languagesProperty, new GUIContent("Languages"));
+                    
+                    CreatingLanguage();
                     serializedSettings.ApplyModifiedProperties();
                     
                     if (GUI.changed)
@@ -39,8 +41,21 @@ namespace Unity_Translate
                 
                 keywords = new[] { "language", "unitytranslation", "translation" }
             };
-
+            
             return provider;
+        }
+
+        public static void CreatingLanguage()
+        {
+            GUILayout.BeginHorizontal();
+            
+            choicedLanguage = (SystemLanguage)EditorGUILayout.EnumPopup("Language", choicedLanguage);
+            
+            if(GUILayout.Button("Create Language"))
+            {
+                LanguageSettings.Instance.CreateLanguage(choicedLanguage);
+            }
+            GUILayout.EndHorizontal();
         }
     }
 }

@@ -25,6 +25,8 @@ namespace Unity_Translate.Translations
 
         protected override void UpdateLang()
         {
+            if(tmpText==null)
+                tmpText = GetComponent<TMP_Text>();
             if(formatingTexts.Length > 0)
             {
                 tmpText.text = FormatText();

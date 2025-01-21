@@ -15,6 +15,8 @@ namespace Unity_Translate.Translations
         
         protected override void UpdateLang()
         {
+            if (audioSource == null)
+                audioSource = GetComponent<AudioSource>();
             audioSource.clip = languageItem.audioClip;
         }
 
