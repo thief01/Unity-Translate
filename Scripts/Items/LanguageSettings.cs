@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using NUnit.Framework;
 using UnityEngine;
 
-namespace Unity_Translate.Items
+namespace Ultimate_Translation.Items
 {
     public class LanguageSettings : ScriptableObject
     {

@@ -1,9 +1,9 @@
 using System.Linq;
-using Unity_Translate.Items;
+using Ultimate_Translation.Items;
 using UnityEditor;
 using UnityEngine;
 
-namespace Unity_Translate
+namespace Ultimate_Translation
 {
     public static class LanguageSettingsProvider
     {

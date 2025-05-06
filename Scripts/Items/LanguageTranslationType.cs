@@ -1,4 +1,4 @@
-namespace Unity_Translate.Items
+namespace Ultimate_Translation.Items
 {
     public enum LanguageTranslationType
     {

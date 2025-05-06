@@ -1,7 +1,7 @@
-using Unity_Translate.Items;
+using Ultimate_Translation.Items;
 using UnityEngine;
 
-namespace Unity_Translate.Translations
+namespace Ultimate_Translation.Translations
 {
     public abstract class LocalizedComponent : MonoBehaviour
     {

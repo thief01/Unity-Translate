@@ -1,8 +1,8 @@
-using Unity_Translate.Items;
+using Ultimate_Translation.Items;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Unity_Translate.Translations
+namespace Ultimate_Translation.Translations
 {
     [RequireComponent(typeof(Image))]
     public class LocalizedImage : LocalizedComponent

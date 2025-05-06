@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace Unity_Translate.Items
+namespace Ultimate_Translation.Items
 {
     [System.Serializable]
     public class LanguageItem : LanguageData

@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
-using Unity_Translate.DebugLang;
-using Unity_Translate.Translations;
+using Ultimate_Translation.Translations;
 using UnityEngine;
 
-namespace Unity_Translate.Items
+namespace Ultimate_Translation.Items
 {
     [CreateAssetMenu(fileName = "New Language", menuName = "thief01/New Language")]
     public class Language : ScriptableObject

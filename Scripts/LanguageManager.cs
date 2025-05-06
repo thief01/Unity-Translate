@@ -1,14 +1,10 @@
-using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
-using Unity_Translate.DebugLang;
-using Unity_Translate.Items;
-using Unity_Translate.Translations;
-using UnityEditor;
+using Ultimate_Translation.Items;
+using Ultimate_Translation.Translations;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Unity_Translate
+namespace Ultimate_Translation
 {
     public class LanguageManager
     {

@@ -1,7 +1,7 @@
-﻿using Unity_Translate.Items;
-using Unity_Translate.Translations;
+﻿using Ultimate_Translation.Items;
+using Ultimate_Translation.Translations;
 
-namespace Unity_Translate
+namespace Ultimate_Translation
 {
     public static class LanguageManagerExtensions
     {

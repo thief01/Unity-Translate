@@ -1,12 +1,10 @@
-using System;
 using System.Collections.Generic;
-using NUnit.Framework;
-using Unity_Translate.Items;
-using Unity_Translate.Translations;
+using Ultimate_Translation.Items;
+using Ultimate_Translation.Translations;
 using UnityEditor;
 using UnityEngine;
 
-namespace Unity_Translate.Editor
+namespace Ultimate_Translation.Editor
 {
     [CustomEditor(typeof(LocalizedComponent), true)]
     public class LocalizedComponentEditor : UnityEditor.Editor

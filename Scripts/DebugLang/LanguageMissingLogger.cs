@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Unity_Translate.Items;
-using Unity_Translate.Translations;
+using Ultimate_Translation.Items;
+using Ultimate_Translation.Translations;
 using UnityEngine;
 
-namespace Unity_Translate.DebugLang
+namespace Ultimate_Translation.DebugLang
 {
     
     public class LanguageMissingLogger

@@ -1,6 +1,6 @@
-﻿using Unity_Translate.Items;
+﻿using Ultimate_Translation.Items;
 
-namespace Unity_Translate.Editor
+namespace Ultimate_Translation.Editor
 {
     public class LanguageItemEditor : LanguageItem
     {

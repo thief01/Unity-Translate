@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Unity_Translate.Translations
+namespace Ultimate_Translation.Translations
 {
     [System.Serializable]
     public class LanguageVariable

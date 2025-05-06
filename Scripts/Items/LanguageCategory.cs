@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Unity_Translate.Items
+namespace Ultimate_Translation.Items
 {
     [System.Serializable]
     public class LanguageCategory
