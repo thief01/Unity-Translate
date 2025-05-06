@@ -90,9 +90,9 @@ namespace Unity_Translate.Editor
             return EditorGUIUtility.singleLineHeight * 3;
         }
 
-        private void UpdateCategoriesCache(bool force = false)
+        private void UpdateCategoriesCache()
         {
-            var shouldUpdate = force || (EditorApplication.timeSinceStartup - lastUpdateTimeCategories > 5);
+            var shouldUpdate = (EditorApplication.timeSinceStartup - lastUpdateTimeCategories > 5);
             if (categories == null || categories.Length == 0)
             {
                 shouldUpdate = true;
@@ -103,9 +103,9 @@ namespace Unity_Translate.Editor
             lastUpdateTimeCategories = EditorApplication.timeSinceStartup;
         }
 
-        private void UpdateKeysCache(bool force = false)
+        private void UpdateKeysCache()
         {
-            var shouldUpdate = force || (EditorApplication.timeSinceStartup - lastUpdateTimeKeys > 5);
+            var shouldUpdate = (EditorApplication.timeSinceStartup - lastUpdateTimeKeys > 5);
             if (keys == null || keys.Length == 0)
             {
                 shouldUpdate = true;
