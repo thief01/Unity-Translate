@@ -34,45 +34,9 @@ namespace Ultimate_Translation.Editor
             languageProperty.intValue = (int)(SystemLanguage)EditorGUI.EnumPopup(position, languageProperty.displayName, (SystemLanguage)languageProperty.intValue);
             UpdateCategoriesCache();
             UpdateKeysCache();
-            
-            var keyProperty = property.FindPropertyRelative("Key");
-            var categoryProperty = property.FindPropertyRelative("Category");
-
-            position.y += EditorGUIUtility.singleLineHeight;
-            if (categories == null)
-            {
-                EditorGUI.LabelField(position, "Not found language", style);
+            if (!DrawCategories(position, property))
                 return;
-            }
-            
-            if (categories.Length == 0)
-            {
-                EditorGUI.LabelField(position, "Not found categories", style);
-                return;
-            }
-            
-            GUIContent[] content = new GUIContent[categories.Length];
-            for (int i = 0; i < categories.Length; i++)
-            {
-                content[i] = new GUIContent(categories[i]);
-                
-            }
-            
-            categoryProperty.intValue = EditorGUI.Popup(position,categoryProperty.intValue, content);
-            position.y += EditorGUIUtility.singleLineHeight;
-            
-            if (keys == null || keys.Length == 0)
-            {
-                EditorGUI.LabelField(position, "Not found keys", style);
-                return;
-            }
-            
-            GUIContent[] keysContent = new GUIContent[keys.Length];
-            for (int i = 0; i < keys.Length; i++)
-            {
-                keysContent[i] = new GUIContent(keys[i]);
-            }
-            keyProperty.intValue = EditorGUI.Popup(position, keyProperty.intValue, keysContent);
+            DrawKeys(position, property);
         }
         
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
@@ -88,6 +52,52 @@ namespace Ultimate_Translation.Editor
             }
             
             return EditorGUIUtility.singleLineHeight * 3;
+        }
+
+        private bool DrawCategories(Rect position, SerializedProperty property)
+        {
+            position.y += EditorGUIUtility.singleLineHeight;
+            if (categories == null)
+            {
+                EditorGUI.LabelField(position, "Not found language", style);
+                return false;
+            }
+            if (categories.Length == 0)
+            {
+                EditorGUI.LabelField(position, "Not found categories", style);
+                return false;
+            }
+            
+            var categoryProperty = property.FindPropertyRelative("Category");
+            
+            GUIContent[] content = new GUIContent[categories.Length];
+            for (int i = 0; i < categories.Length; i++)
+            {
+                content[i] = new GUIContent(categories[i]);
+                
+            }
+            
+            categoryProperty.intValue = EditorGUI.Popup(position,categoryProperty.intValue, content);
+            return true;
+        }
+        
+        private bool DrawKeys(Rect position, SerializedProperty property)
+        {
+            position.y += EditorGUIUtility.singleLineHeight;
+            if (keys == null || keys.Length == 0)
+            {
+                EditorGUI.LabelField(position, "Not found keys", style);
+                return false;
+            }
+            var keyProperty = property.FindPropertyRelative("Key");
+            
+            GUIContent[] keysContent = new GUIContent[keys.Length];
+            for (int i = 0; i < keys.Length; i++)
+            {
+                keysContent[i] = new GUIContent(keys[i]);
+            }
+            keyProperty.intValue = EditorGUI.Popup(position, keyProperty.intValue, keysContent);
+            return true;
         }
 
         private void UpdateCategoriesCache()
