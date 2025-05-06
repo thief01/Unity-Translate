@@ -70,14 +70,7 @@ namespace Ultimate_Translation.Editor
             
             var categoryProperty = property.FindPropertyRelative("Category");
             
-            GUIContent[] content = new GUIContent[categories.Length];
-            for (int i = 0; i < categories.Length; i++)
-            {
-                content[i] = new GUIContent(categories[i]);
-                
-            }
-            
-            categoryProperty.intValue = EditorGUI.Popup(position,categoryProperty.intValue, content);
+            categoryProperty.intValue = EditorGUI.Popup(position,categoryProperty.intValue, categories);
             return true;
         }
         
@@ -91,12 +84,7 @@ namespace Ultimate_Translation.Editor
             }
             var keyProperty = property.FindPropertyRelative("Key");
             
-            GUIContent[] keysContent = new GUIContent[keys.Length];
-            for (int i = 0; i < keys.Length; i++)
-            {
-                keysContent[i] = new GUIContent(keys[i]);
-            }
-            keyProperty.intValue = EditorGUI.Popup(position, keyProperty.intValue, keysContent);
+            keyProperty.intValue = EditorGUI.Popup(position, keyProperty.intValue, keys);
             return true;
         }
 
