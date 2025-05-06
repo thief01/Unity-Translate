@@ -8,27 +8,36 @@ namespace Unity_Translate.Editor
     [CustomPropertyDrawer(typeof(LanguageVariable))]
     public class LanguageVariablePropertyDrawer : PropertyDrawer
     {
+        private readonly GUIStyle style = new GUIStyle()
+        {
+            alignment = TextAnchor.MiddleCenter,
+            fontStyle = FontStyle.Bold,
+            normal = new GUIStyleState()
+            {
+                textColor = Color.red
+            }
+        };
+        
+        private string[] categories;
+        private string[] keys;
+        private double lastUpdateTimeCategories;
+        private double lastUpdateTimeKeys;
+        private SystemLanguage language;
+        private int selectedCategory;
+        private int selectedKey;
+        
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             position.height = EditorGUIUtility.singleLineHeight;
             
             var languageProperty = property.FindPropertyRelative("PreviewLanguage");
             languageProperty.intValue = (int)(SystemLanguage)EditorGUI.EnumPopup(position, languageProperty.displayName, (SystemLanguage)languageProperty.intValue);
-
+            UpdateCategoriesCache();
+            UpdateKeysCache();
             
             var keyProperty = property.FindPropertyRelative("Key");
             var categoryProperty = property.FindPropertyRelative("Category");
-            var categories = LanguageSettings.Instance.GetCategories((SystemLanguage)languageProperty.intValue);
-            
-            GUIStyle style = new GUIStyle()
-            {
-                alignment = TextAnchor.MiddleCenter,
-                fontStyle = FontStyle.Bold,
-                normal = new GUIStyleState()
-                {
-                    textColor = Color.red
-                }
-            };
+
             position.y += EditorGUIUtility.singleLineHeight;
             if (categories == null)
             {
@@ -49,11 +58,8 @@ namespace Unity_Translate.Editor
                 
             }
             
-            
             categoryProperty.intValue = EditorGUI.Popup(position,categoryProperty.intValue, content);
             position.y += EditorGUIUtility.singleLineHeight;
-            
-            var keys = LanguageSettings.Instance.GetKeys((SystemLanguage)languageProperty.intValue, categoryProperty.intValue);
             
             if (keys == null || keys.Length == 0)
             {
@@ -71,8 +77,6 @@ namespace Unity_Translate.Editor
         
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            var languageProperty = property.FindPropertyRelative("PreviewLanguage");
-            var categories = LanguageSettings.Instance.GetCategories((SystemLanguage)languageProperty.intValue);
             if (categories == null)
             {
                 return EditorGUIUtility.singleLineHeight * 2;
@@ -83,13 +87,36 @@ namespace Unity_Translate.Editor
                 return EditorGUIUtility.singleLineHeight * 2;
             }
             
-            var selectedCategory = property.FindPropertyRelative("Category").intValue;
-            var keys = LanguageSettings.Instance.GetKeys((SystemLanguage)languageProperty.intValue, selectedCategory);
+            return EditorGUIUtility.singleLineHeight * 3;
+        }
+
+        private void UpdateCategoriesCache(bool force = false)
+        {
+            var shouldUpdate = force || (EditorApplication.timeSinceStartup - lastUpdateTimeCategories > 5);
+            if (categories == null || categories.Length == 0)
+            {
+                shouldUpdate = true;
+            }
+            if (!shouldUpdate)
+                return;
+            categories = LanguageSettings.Instance.GetCategories(language);
+            lastUpdateTimeCategories = EditorApplication.timeSinceStartup;
+        }
+
+        private void UpdateKeysCache(bool force = false)
+        {
+            var shouldUpdate = force || (EditorApplication.timeSinceStartup - lastUpdateTimeKeys > 5);
             if (keys == null || keys.Length == 0)
             {
-                return EditorGUIUtility.singleLineHeight * 3;
+                shouldUpdate = true;
             }
-            return EditorGUIUtility.singleLineHeight * 3;
+
+            if (!shouldUpdate)
+                return;
+            
+            keys = LanguageSettings.Instance.GetKeys(language, selectedCategory);
+            
+            lastUpdateTimeKeys = EditorApplication.timeSinceStartup;
         }
     }
 }
