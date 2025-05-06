@@ -27,7 +27,7 @@ namespace Unity_Translate.Editor
         private string newTranslation = "New translation";
         private string errorMsg = "";
         
-        [MenuItem("thief01/Tools/Language Editor")]
+        [MenuItem("Tools/thief01/Language Editor")]
         private static void OpenWindow()
         {
             LanguageEditor window = (LanguageEditor)EditorWindow.GetWindow(typeof(LanguageEditor));
