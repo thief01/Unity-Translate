@@ -27,6 +27,7 @@ namespace Ultimate_Translation.Items
                         UnityEditor.AssetDatabase.CreateAsset(instance, path);
                         UnityEditor.AssetDatabase.SaveAssets();
                         UnityEditor.AssetDatabase.Refresh();
+                        instance.CreateLanguage(SystemLanguage.English);
 #endif
                     }
                 }
