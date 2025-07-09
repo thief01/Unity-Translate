@@ -8,6 +8,8 @@ namespace Ultimate_Translation
     public static class LanguageSettingsProvider
     {
         private static SystemLanguage choicedLanguage;
+        
+#if UNITY_EDITOR
         [SettingsProvider]
         public static SettingsProvider CreateCustomSettingsProvider()
         {
@@ -44,6 +46,7 @@ namespace Ultimate_Translation
             
             return provider;
         }
+#endif
 
         public static void CreatingLanguage()
         {
