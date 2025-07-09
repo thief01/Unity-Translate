@@ -15,7 +15,7 @@ namespace Ultimate_Translation.Editor
 
         private void OnEnable()
         {
-            localizedComponent = (LocalizedComponent) target;
+            localizedComponent = (LocalizedComponent)target;
             languages = LanguageSettings.Instance.languages;
             languageVariable = localizedComponent.LanguageVariable;
         }
@@ -23,8 +23,8 @@ namespace Ultimate_Translation.Editor
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            
-            if(GUILayout.Button("Test lang"))
+
+            if (GUILayout.Button("Test lang"))
             {
                 var lang = languages.Find(x => x.language == languageVariable.PreviewLanguage);
                 if (lang == null)
@@ -32,6 +32,7 @@ namespace Ultimate_Translation.Editor
                     Debug.LogError("Language not found");
                     return;
                 }
+
                 var langItem = lang.GetLanguageItem(languageVariable);
                 localizedComponent.SetLanguageData(langItem);
             }

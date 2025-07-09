@@ -11,21 +11,21 @@ namespace Ultimate_Translation.Editor
     public class LanguageEditor : EditorWindow
     {
         private Language UsingLanguage => langs[choicedLang];
-        
+
         private List<Language> langs = new List<Language>();
 
         private List<LanguageItemEditor> missingTranslations = new();
 
-        
+
         private int choicedLang = 0;
         private int choicedCategory = 0;
         private Vector2 scrollView;
-        
+
         private string newCategory = "New category";
         private string newKey = "New key";
         private string newTranslation = "New translation";
         private string errorMsg = "";
-        
+
         [MenuItem("Tools/thief01/Language Editor")]
         private static void OpenWindow()
         {
@@ -42,7 +42,7 @@ namespace Ultimate_Translation.Editor
         {
             InitLangs();
         }
-        
+
         private void InitLangs()
         {
             AssetDatabase.Refresh();
@@ -56,11 +56,11 @@ namespace Ultimate_Translation.Editor
             LanguageSelection();
             CategorySelection();
             AddingTranslation();
-            
+
             scrollView = GUILayout.BeginScrollView(scrollView);
             DrawLangView();
             GUILayout.EndScrollView();
-            
+
             EditorUtility.SetDirty(UsingLanguage);
         }
 
@@ -86,9 +86,10 @@ namespace Ultimate_Translation.Editor
                 choicedLang = tempLang;
                 choicedCategory = 0;
             }
+
             GUILayout.EndHorizontal();
         }
-        
+
         private void CategorySelection()
         {
             GUILayout.BeginHorizontal();
@@ -98,6 +99,7 @@ namespace Ultimate_Translation.Editor
             {
                 choicedCategory = tempCategory;
             }
+
             newCategory = EditorGUILayout.TextField(newCategory);
             if (GUILayout.Button("Add category"))
             {
@@ -107,10 +109,10 @@ namespace Ultimate_Translation.Editor
                     errorMsg = "Category already exists";
                     return;
                 }
-                
+
                 choicedCategory = UsingLanguage.languageCategories.Count - 1;
             }
-            
+
             if (UsingLanguage.languageCategories.Count > 0 && GUILayout.Button("Remove category"))
             {
                 errorMsg = "";
@@ -118,13 +120,14 @@ namespace Ultimate_Translation.Editor
                 choicedCategory = 0;
                 return;
             }
+
             GUILayout.EndHorizontal();
         }
-        
+
         private void AddingTranslation()
         {
             GUILayout.BeginHorizontal();
-            
+
             newKey = EditorGUILayout.TextField(newKey);
             newTranslation = EditorGUILayout.TextField(newTranslation);
             if (GUILayout.Button("Add translation"))
@@ -135,6 +138,7 @@ namespace Ultimate_Translation.Editor
                     errorMsg = "Translation already exists";
                 }
             }
+
             GUILayout.EndHorizontal();
         }
 
@@ -144,17 +148,17 @@ namespace Ultimate_Translation.Editor
             {
                 EditorGUILayout.HelpBox(errorMsg, MessageType.Error);
             }
-            
+
             var categories = UsingLanguage.languageCategories;
             if (categories.Count == 0)
             {
                 errorMsg = "No categories found";
                 return;
             }
-            
+
             var translations = UsingLanguage.languageCategories[choicedCategory].languageItems;
             translations = translations.OrderBy(ctg => ctg.key).ToList();
-            
+
             foreach (var translation in translations)
             {
                 DrawSingleTranslationLine(translation, "-", RemoveTranslation);
@@ -167,18 +171,21 @@ namespace Ultimate_Translation.Editor
             GUILayout.BeginHorizontal();
 
             EditorGUILayout.LabelField(languageItem.key);
-            GUILayoutOption[] options = {GUILayout.Width(150), GUILayout.Height(50)};
+            GUILayoutOption[] options = { GUILayout.Width(150), GUILayout.Height(50) };
             languageItem.translation = EditorGUILayout.TextArea(languageItem.translation, options);
-            languageItem.audioClip = (AudioClip)EditorGUILayout.ObjectField(languageItem.audioClip, typeof(AudioClip), false, options);
-            languageItem.sprite = (Sprite)EditorGUILayout.ObjectField(languageItem.sprite, typeof(Sprite), false, options);
+            languageItem.audioClip =
+                (AudioClip)EditorGUILayout.ObjectField(languageItem.audioClip, typeof(AudioClip), false, options);
+            languageItem.sprite =
+                (Sprite)EditorGUILayout.ObjectField(languageItem.sprite, typeof(Sprite), false, options);
             if (GUILayout.Button(buttonActionText, GUILayout.Width(20)))
             {
                 errorMsg = "";
                 onButtonClick.Invoke(languageItem);
             }
+
             GUILayout.EndHorizontal();
         }
-        
+
         private void RemoveTranslation(LanguageItem languageItem)
         {
             UsingLanguage.languageCategories[choicedCategory].languageItems.Remove(languageItem);

@@ -22,8 +22,9 @@ namespace Ultimate_Translation.Items
                         if (!Directory.Exists(path))
                         {
                             var dict = Path.GetDirectoryName(path);
-                            Directory.CreateDirectory(dict );
+                            Directory.CreateDirectory(dict);
                         }
+
                         UnityEditor.AssetDatabase.CreateAsset(instance, path);
                         UnityEditor.AssetDatabase.SaveAssets();
                         UnityEditor.AssetDatabase.Refresh();
@@ -31,15 +32,15 @@ namespace Ultimate_Translation.Items
 #endif
                     }
                 }
-                
+
                 instance.LoadLanguages();
 
                 return instance;
             }
         }
-        
+
         private static LanguageSettings instance;
-        
+
         public SystemLanguage defaultLanguage = SystemLanguage.English;
 
         public List<Language> languages = new List<Language>();
@@ -50,7 +51,7 @@ namespace Ultimate_Translation.Items
             {
                 return null;
             }
-            
+
             var language = languages.Find(x => x.language == systemLanguage);
             if (language == null)
                 language = languages.FirstOrDefault();
@@ -63,15 +64,15 @@ namespace Ultimate_Translation.Items
             {
                 return null;
             }
-            
+
             var language = languages.Find(x => x.language == systemLanguage);
             if (language == null)
                 language = languages.FirstOrDefault();
             return language.GetKeys(category);
         }
-        
+
 #if UNITY_EDITOR
-        
+
         public void LoadLanguages()
         {
             languages = new List<Language>();
@@ -86,11 +87,11 @@ namespace Ultimate_Translation.Items
 
         public void CreateLanguage(SystemLanguage systemLanguage)
         {
-            if(!Directory.Exists("Assets/Resources/Languages"))
+            if (!Directory.Exists("Assets/Resources/Languages"))
             {
                 Directory.CreateDirectory("Assets/Resources/Languages");
             }
-            
+
             var language = CreateInstance<Language>();
             language.language = systemLanguage;
             language.languageCategories = new List<LanguageCategory>();
@@ -98,21 +99,21 @@ namespace Ultimate_Translation.Items
             UnityEditor.AssetDatabase.CreateAsset(language, path);
             LoadLanguages();
         }
-        
+
         public void AddLanguage(Language language)
         {
             languages.Add(language);
             UnityEditor.EditorUtility.SetDirty(this);
             UnityEditor.AssetDatabase.SaveAssets();
         }
-        
+
         public void RemoveLanguage(Language language)
         {
             languages.Remove(language);
             UnityEditor.EditorUtility.SetDirty(this);
             UnityEditor.AssetDatabase.SaveAssets();
         }
-        
+
 #endif
     }
 }

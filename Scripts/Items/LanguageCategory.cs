@@ -22,7 +22,7 @@ namespace Ultimate_Translation.Items
             if (languageItems.Exists(ctg => ctg.key == key))
                 return false;
 
-            languageItems.Add(new LanguageItem(){key = key, translation =  value});
+            languageItems.Add(new LanguageItem() { key = key, translation = value });
             return true;
         }
 

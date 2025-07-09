@@ -16,7 +16,7 @@ namespace Ultimate_Translation.Translations
             tmpText = GetComponent<TMP_Text>();
             base.Awake();
         }
-        
+
         public void SetTextsToFormat(params string[] texts)
         {
             formatingTexts = texts;
@@ -25,16 +25,17 @@ namespace Ultimate_Translation.Translations
 
         protected override void UpdateLang()
         {
-            if(tmpText==null)
+            if (tmpText == null)
                 tmpText = GetComponent<TMP_Text>();
-            if(formatingTexts.Length > 0)
+            if (formatingTexts.Length > 0)
             {
                 tmpText.text = FormatText();
                 return;
             }
+
             tmpText.text = languageItem.translation;
         }
-        
+
         protected override LanguageTranslationType GetTranslationType()
         {
             return LanguageTranslationType.Text;
@@ -53,7 +54,7 @@ namespace Ultimate_Translation.Translations
                 Debug.LogError("Error in formatting text: " + e.Message + " with text: " + languageItem.translation +
                                " and formating texts count: " + formatingTexts.Length);
             }
-            
+
             return languageItem.translation;
         }
     }

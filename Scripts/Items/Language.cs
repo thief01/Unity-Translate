@@ -11,7 +11,7 @@ namespace Ultimate_Translation.Items
     {
         public SystemLanguage language;
         public List<LanguageCategory> languageCategories;
-        
+
         public bool AddCategory(LanguageCategory languageCategory)
         {
             if (languageCategories.Exists(ctg => ctg.categoryName == languageCategory.categoryName))
@@ -31,7 +31,7 @@ namespace Ultimate_Translation.Items
 
             return true;
         }
-        
+
         public LanguageItem GetLanguageItem(LanguageVariable languageVariable)
         {
             var category = languageCategories[languageVariable.Category];
@@ -39,7 +39,8 @@ namespace Ultimate_Translation.Items
             return category.languageItems[languageVariable.Key];
         }
 
-        public LanguageItem GetLanguageItem(string category, string key, LanguageTranslationType type = LanguageTranslationType.Undefined)
+        public LanguageItem GetLanguageItem(string category, string key,
+            LanguageTranslationType type = LanguageTranslationType.Undefined)
         {
             foreach (var languageCategory in languageCategories)
             {

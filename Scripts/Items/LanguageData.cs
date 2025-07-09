@@ -7,7 +7,7 @@ namespace Ultimate_Translation.Items
         public string translation;
         public Sprite sprite;
         public AudioClip audioClip;
-        
+
         public bool CheckType(LanguageTranslationType type)
         {
             switch (type)

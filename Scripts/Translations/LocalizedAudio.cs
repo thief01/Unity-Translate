@@ -6,13 +6,13 @@ namespace Ultimate_Translation.Translations
     public class LocalizedAudio : LocalizedComponent
     {
         private AudioSource audioSource;
-        
+
         protected override void Awake()
         {
             audioSource = GetComponent<AudioSource>();
             base.Awake();
         }
-        
+
         protected override void UpdateLang()
         {
             if (audioSource == null)
