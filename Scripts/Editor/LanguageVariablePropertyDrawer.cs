@@ -25,6 +25,7 @@ namespace Ultimate_Translation.Editor
         private SystemLanguage language;
         private int selectedCategory;
         private int selectedKey;
+        private bool shouldUpdateKeys;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -33,6 +34,7 @@ namespace Ultimate_Translation.Editor
             var languageProperty = property.FindPropertyRelative("PreviewLanguage");
             languageProperty.intValue = (int)(SystemLanguage)EditorGUI.EnumPopup(position, languageProperty.displayName,
                 (SystemLanguage)languageProperty.intValue);
+            language = (SystemLanguage)languageProperty.intValue;
             UpdateCategoriesCache();
             UpdateKeysCache();
             if (!DrawCategories(position, property))
@@ -72,13 +74,20 @@ namespace Ultimate_Translation.Editor
 
             var categoryProperty = property.FindPropertyRelative("Category");
 
-            categoryProperty.intValue = EditorGUI.Popup(position, categoryProperty.intValue, categories);
+            var categoryValue = EditorGUI.Popup(position, categoryProperty.intValue, categories);
+            categoryProperty.intValue = categoryValue;
+            if (categoryValue != selectedCategory)
+            {
+                selectedCategory = categoryProperty.intValue;
+                shouldUpdateKeys = true;
+            }
+
             return true;
         }
 
         private bool DrawKeys(Rect position, SerializedProperty property)
         {
-            position.y += EditorGUIUtility.singleLineHeight;
+            position.y += EditorGUIUtility.singleLineHeight * 2;
             if (keys == null || keys.Length == 0)
             {
                 EditorGUI.LabelField(position, "Not found keys", style);
@@ -113,7 +122,7 @@ namespace Ultimate_Translation.Editor
                 shouldUpdate = true;
             }
 
-            if (!shouldUpdate)
+            if (!shouldUpdate && !shouldUpdateKeys)
                 return;
 
             keys = LanguageSettings.Instance.GetKeys(language, selectedCategory);

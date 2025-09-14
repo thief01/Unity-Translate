@@ -33,7 +33,7 @@ namespace Ultimate_Translation.Items
                     }
                 }
 
-                instance.LoadLanguages();
+                //instance.LoadLanguages();
 
                 return instance;
             }

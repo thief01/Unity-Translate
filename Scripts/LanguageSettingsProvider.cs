@@ -46,7 +46,7 @@ namespace Ultimate_Translation
             
             return provider;
         }
-#endif
+
 
         public static void CreatingLanguage()
         {
@@ -60,5 +60,6 @@ namespace Ultimate_Translation
             }
             GUILayout.EndHorizontal();
         }
+#endif
     }
 }
