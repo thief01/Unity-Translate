@@ -27,7 +27,7 @@ namespace Ultimate_Translation.Translations
         {
             if (tmpText == null)
                 tmpText = GetComponent<TMP_Text>();
-            if (formatingTexts.Length > 0)
+            if (formatingTexts != null && formatingTexts.Length > 0)
             {
                 tmpText.text = FormatText();
                 return;

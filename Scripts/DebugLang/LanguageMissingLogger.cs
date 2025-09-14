@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -19,7 +20,7 @@ namespace Ultimate_Translation.DebugLang
 
         private static LanguageMissingLogger instance;
 
-        private List<string> missingKeys;
+        private List<string> missingKeys = new List<string>();
 
         private LanguageMissingLogger()
         {
@@ -48,13 +49,20 @@ namespace Ultimate_Translation.DebugLang
         {
             CheckPath();
 
-            StreamReader sr = new StreamReader(MISSING_TRANSLATIONS_FILE_PATH);
-            string line;
-            while ((line = sr.ReadLine()) != null)
+            try
             {
-                AddMissingTranslations(line);
+                StreamReader sr = new StreamReader(MISSING_TRANSLATIONS_FILE_PATH);
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    AddMissingTranslations(line);
+                }
+                sr.Close();
             }
-            sr.Close();
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
         
         public void SaveMissingTranslations()
