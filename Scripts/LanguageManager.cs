@@ -1,5 +1,4 @@
 using System.Linq;
-using Ultimate_Translation.DebugLang;
 using Ultimate_Translation.Items;
 using Ultimate_Translation.Translations;
 using UnityEngine;
@@ -9,7 +8,7 @@ namespace Ultimate_Translation
 {
     public class LanguageManager
     {
-        public static UnityEvent LanguageChanged = new UnityEvent();
+        public static UnityEvent LanguageChanged = new();
         public SystemLanguage CurrentLanguage { get; private set; }
         public Language CurrentLanguageData { get; private set; }
         
@@ -37,8 +36,7 @@ namespace Ultimate_Translation
             var langItem = CurrentLanguageData.GetLanguageItem(languageVariable);
             if (langItem.CheckType(type))
             {
-                LanguageMissingLogger.Instance.LogMissingTranslation(languageVariable, type, CurrentLanguage);
-                
+                Debug.LogWarning($"Language item {languageVariable.Category}:{languageVariable.Key} has not type {type}.");
             }
             return langItem;
         }
@@ -48,7 +46,7 @@ namespace Ultimate_Translation
             var langItem = CurrentLanguageData.GetLanguageItem(category, key, type);
             if (langItem.CheckType(type))
             {
-                LanguageMissingLogger.Instance.LogMissingTranslation(category, key, type, CurrentLanguage);
+                Debug.LogWarning($"Language item {category}:{key} has not type {type}.");
             }
 
             return langItem;

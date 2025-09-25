@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ultimate_Translation.DebugLang;
 using Ultimate_Translation.Translations;
 using UnityEngine;
 
@@ -36,7 +35,6 @@ namespace Ultimate_Translation.Items
         public LanguageItem GetLanguageItem(LanguageVariable languageVariable)
         {
             var category = languageCategories[languageVariable.Category];
-            // TODO: Safe code + cache key as the name to make default value
             return category.languageItems[languageVariable.Key];
         }
 
@@ -56,8 +54,8 @@ namespace Ultimate_Translation.Items
                     }
                 }
             }
-
-            LanguageMissingLogger.Instance.LogMissingTranslation(category, key, type, language);
+            
+            Debug.LogWarning("Language Category not found: " + category);
             return new LanguageItem() { key = key, translation = key };
         }
 
