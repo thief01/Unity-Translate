@@ -63,6 +63,7 @@ namespace Ultimate_Translation.Editor
 
         private void UpdateLangList()
         {
+            LanguageSettings.Instance.LoadLanguages();
             if (langs.Count != LanguageSettings.Instance.languages.Count)
             {
                 langs = LanguageSettings.Instance.languages;

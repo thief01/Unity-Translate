@@ -109,8 +109,9 @@ namespace Ultimate_Translation.Items
 #endif
                 }
             }
-
-            instance.LoadLanguages();
+            
+            if(instance.languages.Count == 0)
+                instance.LoadLanguages();
 
             return instance;
         }
