@@ -60,7 +60,7 @@ namespace Ultimate_Translation.Items
 
         public string[] GetKeys(SystemLanguage systemLanguage, int category)
         {
-            if (Instance == null || Instance.languages == null)
+            if (Instance == null || Instance.languages == null || Instance.languages.Count == 0)
             {
                 return null;
             }

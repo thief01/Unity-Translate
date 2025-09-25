@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ultimate_Translation.DebugLang;
@@ -62,11 +63,15 @@ namespace Ultimate_Translation.Items
 
         public string[] GetCategories()
         {
+            if (languageCategories == null || languageCategories.Count == 0)
+                return Array.Empty<string>();
             return languageCategories.Select(ctg => ctg.categoryName).ToArray();
         }
 
         public string[] GetKeys(int category)
         {
+            if (languageCategories == null || languageCategories.Count == 0)
+                return null;
             return languageCategories[category].languageItems.Select(ctg => ctg.key).ToArray();
         }
     }
