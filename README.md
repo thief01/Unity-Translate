@@ -5,3 +5,7 @@ Unity-Translate is a Unity package that provides a simple way to translate your 
 - Easy to use
 - Supports multiple languages
 - Supports text, images and audio translations
+
+## Todo:
+
+- Fix category/keys and sort it to remove language swap bug
