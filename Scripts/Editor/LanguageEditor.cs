@@ -12,10 +12,8 @@ namespace Ultimate_Translation.Editor
     {
         private Language UsingLanguage => langs[choicedLang];
 
-        private List<Language> langs = new List<Language>();
-
-        private List<LanguageItemEditor> missingTranslations = new();
-
+        private List<Language> langs = new();
+        
 
         private int choicedLang = 0;
         private int choicedCategory = 0;
@@ -29,7 +27,7 @@ namespace Ultimate_Translation.Editor
         [MenuItem("Tools/thief01/Language Editor")]
         private static void OpenWindow()
         {
-            LanguageEditor window = (LanguageEditor)EditorWindow.GetWindow(typeof(LanguageEditor));
+            LanguageEditor window = (LanguageEditor)GetWindow(typeof(LanguageEditor));
             window.Show();
         }
 
@@ -47,7 +45,6 @@ namespace Ultimate_Translation.Editor
         {
             AssetDatabase.Refresh();
             langs = LanguageSettings.Instance.languages;
-            missingTranslations.Clear();
         }
 
         private void OnGUI()
@@ -177,7 +174,7 @@ namespace Ultimate_Translation.Editor
                 (AudioClip)EditorGUILayout.ObjectField(languageItem.audioClip, typeof(AudioClip), false, options);
             languageItem.sprite =
                 (Sprite)EditorGUILayout.ObjectField(languageItem.sprite, typeof(Sprite), false, options);
-            if (GUILayout.Button(buttonActionText, GUILayout.Width(20)))
+            if (GUILayout.Button(buttonActionText, GUILayout.Width(50), GUILayout.Height(50)))
             {
                 errorMsg = "";
                 onButtonClick.Invoke(languageItem);
