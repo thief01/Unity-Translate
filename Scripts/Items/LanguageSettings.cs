@@ -7,37 +7,7 @@ namespace Ultimate_Translation.Items
 {
     public class LanguageSettings : ScriptableObject
     {
-        public static LanguageSettings Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = Resources.Load<LanguageSettings>("Language Settings");
-                    if (instance == null)
-                    {
-                        instance = CreateInstance<LanguageSettings>();
-#if UNITY_EDITOR
-                        string path = "Assets/Resources/Language Settings.asset";
-                        if (!Directory.Exists(path))
-                        {
-                            var dict = Path.GetDirectoryName(path);
-                            Directory.CreateDirectory(dict);
-                        }
-
-                        UnityEditor.AssetDatabase.CreateAsset(instance, path);
-                        UnityEditor.AssetDatabase.SaveAssets();
-                        UnityEditor.AssetDatabase.Refresh();
-                        instance.CreateLanguage(SystemLanguage.English);
-#endif
-                    }
-                }
-
-                //instance.LoadLanguages();
-
-                return instance;
-            }
-        }
+        public static LanguageSettings Instance => GetInstance();
 
         private static LanguageSettings instance;
 
@@ -115,5 +85,34 @@ namespace Ultimate_Translation.Items
         }
 
 #endif
+
+        private static LanguageSettings GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = Resources.Load<LanguageSettings>("Language Settings");
+                if (instance == null)
+                {
+                    instance = CreateInstance<LanguageSettings>();
+#if UNITY_EDITOR
+                    string path = "Assets/Resources/Language Settings.asset";
+                    if (!Directory.Exists(path))
+                    {
+                        var dict = Path.GetDirectoryName(path);
+                        Directory.CreateDirectory(dict);
+                    }
+
+                    UnityEditor.AssetDatabase.CreateAsset(instance, path);
+                    UnityEditor.AssetDatabase.SaveAssets();
+                    UnityEditor.AssetDatabase.Refresh();
+                    instance.CreateLanguage(SystemLanguage.English);
+#endif
+                }
+            }
+
+            instance.LoadLanguages();
+
+            return instance;
+        }
     }
 }
