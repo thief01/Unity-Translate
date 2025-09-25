@@ -8,5 +8,7 @@ namespace Ultimate_Translation.Translations
         public SystemLanguage PreviewLanguage;
         public int Category;
         public int Key;
+        public string CategoryName;
+        public string KeyName;
     }
 }
